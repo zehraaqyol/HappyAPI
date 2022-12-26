@@ -7,6 +7,6 @@ import io.restassured.RestAssured;
 public class Hooks {
     @Before
     public void setUpRequest(){
-        RestAssured.baseURI = ConfigurationReader.getProperty("apiUrl");
+        RestAssured.baseURI = ConfigurationReader.getProperty("zippoUrl");
     }
 }

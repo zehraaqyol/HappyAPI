@@ -77,9 +77,24 @@ public class getBooksSteps {
         value= jsonPath.getString(key);
         System.out.println(key+" = "+value);
 
-        Assert.assertEquals(jsonPath.getString(key),value);
+        Assert.assertEquals(jsonPath.getString(key),value); //emin değilim doğru bir assertion mantığı olmuş mu Oscar?
+    }
+    ////////////////ZIPPOPOTAM.US//////////////////////////////
 
-
-
+    @When("User sends GET request to receive info by endpoint")
+    public void user_sends_get_request_to_receive_info_by_endpoint() {
+        response=given().accept(ContentType.JSON)
+                .get("TR/71400");
+        response.prettyPrint();
+    }
+    @Then("verify response body is correct")
+    public void verify_response_body_is_correct() {
+        jsonPath=response.jsonPath();
+        String longitude = jsonPath.getString("places[8].longitude");
+        System.out.println("longitude = " + longitude);
+        //String placeName= jsonPath.getString("places[8].place name");
+       // System.out.println("placeName = " + placeName);
+        Assert.assertEquals("34.1667",longitude);
+        Assert.assertTrue("Verify place name is that",jsonPath.getString("places[8]").contains("Kaletepe Mahallesi"));
     }
 }

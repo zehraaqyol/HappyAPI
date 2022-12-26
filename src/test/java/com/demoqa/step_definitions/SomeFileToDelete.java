@@ -1,2 +1,4 @@
-package com.demoqa.step_definitions;public class SomeFileToDelete {
+package com.demoqa.step_definitions;
+public class SomeFileToDelete {
+
 }

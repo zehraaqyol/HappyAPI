@@ -20,8 +20,17 @@ Feature: Get All Books Info
       | pages        | 238                                                                       |
       | description  | Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft|
       | website      | http://chimera.labs.oreilly.com/books/1234000001708/index.html            |
+@books
+  Scenario Outline: Verify book's titles correctly
+    When user sends GET reguest with a param
+    Then Verify "<number>" book's title "<title>"
+    Examples: book titles
+      | number | title                                     |
+      | 1      | Git Pocket Guide                          |
+      | 2      | Learning JavaScript Design Patterns       |
+      | 3      | Designing Evolvable Web APIs with ASP.NET |
 
-    @zippo
+  @zippo
     Scenario: Verify zippopotam.us web site api info
       When User sends GET request to receive info by endpoint
       Then verify response body is correct

@@ -79,6 +79,24 @@ public class getBooksSteps {
 
         Assert.assertEquals(jsonPath.getString(key),value); //emin değilim doğru bir assertion mantığı olmuş mu Oscar?
     }
+    @When("user sends GET reguest with a param")
+    public void user_sends_get_reguest_with_a_param() {
+        response= given().accept(ContentType.JSON)
+                .queryParam("ISBN","9781449325862")
+                .get("/BookStore/v1/Book");
+        // response.prettyPrint();
+    }
+    @Then("Verify {string} book's title {string}")
+    public void verifyBookS(String number, String title) {
+        response= given().accept(ContentType.JSON)
+                .get("/BookStore/v1/Books");
+
+        jsonPath=response.jsonPath();
+        title= jsonPath.getString("books["+number+"].title");
+        System.out.println("title "+number+" = " + title);
+        Assert.assertTrue(response.body().asString().contains(title));
+
+    }
     ////////////////ZIPPOPOTAM.US//////////////////////////////
 
     @When("User sends GET request to receive info by endpoint")

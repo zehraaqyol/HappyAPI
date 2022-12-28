@@ -86,13 +86,13 @@ public class getBooksSteps {
                 .get("/BookStore/v1/Book");
         // response.prettyPrint();
     }
-    @Then("Verify {string} book's title {string}")
-    public void verifyBookS(String number, String title) {
+    @Then("Verify {int} book's title {string}")
+    public void verifyBookS(int number, String title) {
         response= given().accept(ContentType.JSON)
                 .get("/BookStore/v1/Books");
 
         jsonPath=response.jsonPath();
-        title= jsonPath.getString("books["+number+"].title");
+        title= jsonPath.getString("books["+(number-1)+"].title");
         System.out.println("title "+number+" = " + title);
         Assert.assertTrue(response.body().asString().contains(title));
 
@@ -115,4 +115,5 @@ public class getBooksSteps {
         Assert.assertEquals("34.1667",longitude);
         Assert.assertTrue("Verify place name is that",jsonPath.getString("places[8]").contains("Kaletepe Mahallesi"));
     }
+
 }

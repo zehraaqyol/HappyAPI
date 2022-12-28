@@ -72,12 +72,12 @@ public class getBooksSteps {
 //    }
 
     @Then("Verify that we have correct info about fisrt book which we selected {string} {string}")
-    public void verifyThatWeHaveCorrectInfoAboutFisrtBookWhichWeSelected(String key, String value) {
+    public void verifyThatWeHaveCorrectInfoAboutFisrtBookWhichWeSelected(String key, String info) {
         jsonPath=response.jsonPath();
-        value= jsonPath.getString(key);
+        String value= jsonPath.getString(key);
         System.out.println(key+" = "+value);
 
-        Assert.assertEquals(jsonPath.getString(key),value); //emin değilim doğru bir assertion mantığı olmuş mu Oscar?
+        Assert.assertEquals(value,info); //emin değilim doğru bir assertion mantığı olmuş mu Oscar?
     }
     @When("user sends GET reguest with a param")
     public void user_sends_get_reguest_with_a_param() {

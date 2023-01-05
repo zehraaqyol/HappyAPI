@@ -9,7 +9,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class getBooksSteps {
 
@@ -114,6 +116,23 @@ public class getBooksSteps {
        // System.out.println("placeName = " + placeName);
         Assert.assertEquals("34.1667",longitude);
         Assert.assertTrue("Verify place name is that",jsonPath.getString("places[8]").contains("Kaletepe Mahallesi"));
+    }
+    @Then("Verify that we have correct info about fisrt book which we selected")
+    public void verify_that_we_have_correct_info_about_fisrt_book_which_we_selected(Map<String,Object> bookMap) {
+        response= given().accept(ContentType.JSON)
+                .queryParam("ISBN","9781449337711")
+                .get("/BookStore/v1/Book");
+
+        Map<String,Object> actualBookMap= response.body().as(Map.class);
+//        System.out.println("isbn = "+ actualBookMap.get("isbn"));
+//        System.out.println("title = "+ actualBookMap.get("title"));
+//        System.out.println("pages = " + actualBookMap.get("pages"));
+//        System.out.println("");
+
+        for(Object info : actualBookMap.values()){
+                System.out.println(info);
+            }
+       //Assert.assertTrue((actualBookMap.values().equals(bookMap.values())));
     }
 
 }

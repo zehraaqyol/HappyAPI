@@ -30,7 +30,7 @@ public class CreateUserSteps {
     public void user_send_a_post_request_to_create_user_end_point() {
 
        requestUserName= ConfigurationReader.getProperty("userName");
-       requestPassword= ConfigurationReader.getProperty("passWord");
+       //requestPassword= ConfigurationReader.getProperty("passWord");
 
         response= given().accept(ContentType.JSON)
                 .and().contentType(ContentType.JSON)

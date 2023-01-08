@@ -12,7 +12,11 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
+import javax.swing.*;
+import java.util.List;
 import java.util.Random;
 
 import static io.restassured.RestAssured.given;
@@ -29,8 +33,11 @@ public class SpartanStepDefs {
     String phone;
 
     Response response;
+    Response responseRandom;
 
     String lastId;
+
+    String randomSpartanID;
 
     @Given("User create a new Spartan")
     public void user_create_a_new_spartan() {
@@ -60,9 +67,7 @@ public class SpartanStepDefs {
     public void user_delete_the_spartan(){
        // spartanHomePage.deleteSpartan(name).click();
        // BrowserUtils.waitFor(2.0);
-//        given().pathParam("name",name)
-//                .when().delete(ConfigurationReader.getProperty("spartan_api_url")+"/api/spartans/{name}")
-//                .then().statusCode(404).log().all();
+
         if(response.body().asString().contains(name)){
             lastId= response.body().path("id[-1]").toString();
             System.out.println("lastId = " + lastId);
@@ -70,8 +75,6 @@ public class SpartanStepDefs {
         given().pathParam("id",lastId)
                 .when().delete(ConfigurationReader.getProperty("spartan_api_url")+"/api/spartans/{id}")
                 .then().statusCode(204).log().all();
-
-
     }
     @Then("user verify it is deleted")
     public void user_verify_it_is_deleted() {
@@ -87,13 +90,31 @@ public class SpartanStepDefs {
     public void user_clicks_on_any_random_spartan_and_view_data() {
         Driver.get().get(ConfigurationReader.getProperty("spUrl"));
 
+        List<String> allSpartanIDs= BrowserUtils.getElementsText(spartanHomePage.allSpartanIDs);
+
+        Random random= new Random();
+        int randomSpartanNumber= random.nextInt(allSpartanIDs.size());
+        randomSpartanID= allSpartanIDs.get(randomSpartanNumber);
+        System.out.println("randomSpartanID = " + randomSpartanID);
+
+        BrowserUtils.waitFor(3.0);
+        Actions actions= new Actions(Driver.get());
+        actions.moveToElement(spartanHomePage.viewSpartan(randomSpartanID)).click(spartanHomePage.viewSpartan(randomSpartanID)).perform();
     }
     @Then("verify spartan data should be same with API")
     public void verify_spartan_data_should_be_same_with_api() {
+        BrowserUtils.waitFor(3.0);
+        responseRandom= given().accept(ContentType.JSON)
+                .pathParam("id",randomSpartanID)
+                 .get(ConfigurationReader.getProperty("spartan_api_url")+"/api/spartans/{id}");
+
+        responseRandom.prettyPrint();
+
+         String expectedName=responseRandom.path("name");
+         String actualName= spartanHomePage.getNameSpartan(randomSpartanID);
+        // String actualName= spartanHomePage.viewSpartan(randomSpartanID).getAttribute("name");
+        System.out.println("expectedName = " + expectedName);
+        //System.out.println("actualName = " + actualName);
 
     }
-
-
-
-
 }

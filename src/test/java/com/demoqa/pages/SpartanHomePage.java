@@ -12,7 +12,7 @@ public class SpartanHomePage extends BasePage {
     @FindBy(xpath = "//tbody//tr")
     public List<WebElement> allSpartans;
 
-    @FindBy(xpath = "//tbody//tr[1]")
+    @FindBy(xpath = "//tbody//tr//td[1]")
     public List<WebElement> allSpartanIDs;
 
     @FindBy(partialLinkText = "Add Spartan")
@@ -23,10 +23,14 @@ public class SpartanHomePage extends BasePage {
 
     //  //tbody/tr//td[.='Mahmut']/..//td[7]/a
     public WebElement deleteSpartan(String name){
-        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+name+"']/..//td[7]/a"));// anlamadım bu locator i
+        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+name+"']/..//td[7]/a"));
     }
-    public WebElement viewSpartan(String name){
-        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+name+"']/..//td[5]/a"));
+    public WebElement viewSpartan(String id){
+        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+id+"']/..//td[5]/a"));
     }
+    public String getNameSpartan(String id){
+        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+id+"']/..//td[2]/a")).getText();
+    }
+
 
 }

@@ -111,10 +111,12 @@ public class SpartanStepDefs {
         responseRandom.prettyPrint();
 
          String expectedName=responseRandom.path("name");
-         String actualName= spartanHomePage.getNameSpartan(randomSpartanID);
-        // String actualName= spartanHomePage.viewSpartan(randomSpartanID).getAttribute("name");
+         //String actualName= spartanHomePage.getNameSpartan(randomSpartanID);
+
         System.out.println("expectedName = " + expectedName);
         //System.out.println("actualName = " + actualName);
+
+        //Assert.assertEquals(expectedName,actualName);
 
     }
 }

@@ -87,6 +87,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.32</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.yev/screenshot -->
+        <dependency>
+            <groupId>com.github.yev</groupId>
+            <artifactId>screenshot</artifactId>
+            <version>0.2</version>
+        </dependency>
 
     </dependencies>
 

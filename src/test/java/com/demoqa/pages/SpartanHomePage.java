@@ -29,7 +29,7 @@ public class SpartanHomePage extends BasePage {
         return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+id+"']/..//td[5]/a"));
     }
     public String getNameSpartan(String id){
-        return Driver.get().findElement(By.xpath("//tbody/tr//td[.='"+id+"']/..//td[2]/a")).getText();
+        return Driver.get().findElement(By.xpath("//tbody//tr//td[.='"+id+"']/..//td[2]")).getText();
     }
 
 

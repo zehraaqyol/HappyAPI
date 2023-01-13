@@ -4,7 +4,6 @@ import com.demoqa.utils.ConfigurationReader;
 import com.demoqa.utils.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import io.restassured.RestAssured;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -16,10 +15,10 @@ public class Hooks {
     public void setUpRequest(){
         Driver.get().manage().window().maximize();
         Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-       // RestAssured.baseURI = ConfigurationReader.getProperty("spUrl");
+        //RestAssured.baseURI = ConfigurationReader.getProperty("bookItUrl");
     }
     @After
-    public void tearDown(Scenario scenario){
+    public void tearDown(){
 //        //only takes a screenshot if the scenario fails
 //        if(scenario.isFailed()){
 //            //taking a screenshot

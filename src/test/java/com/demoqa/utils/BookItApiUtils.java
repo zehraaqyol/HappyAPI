@@ -4,20 +4,22 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
-import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 
 public class BookItApiUtils {
 
     public static  String generateToken(String email, String password){
-        Response response= given().queryParam("email",email)
+        Response response= given()
+                .accept(ContentType.JSON)
+                .queryParam("email",email)
                 .and().queryParam("password",password)
-                .when().get(ConfigurationReader.getProperty("qa3api.url"+"/sign"));
+                .when().get(ConfigurationReader.getProperty("qa3api.url")+"/sign");
 
         String token=response.path("accessToken");
-        String fullToken= "Bearer"+token;
+        String finalToken= "Bearer"+token;
+        System.out.println("finalToken = " + finalToken);
 
-        return fullToken;
+        return finalToken;
     }
     public String [] getMyInfo(String email,String password){
         String [] myInfo= new String[3];
